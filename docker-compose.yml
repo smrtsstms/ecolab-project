@@ -1,0 +1,83 @@
+version: "3.3"
+services:
+  database:
+    container_name: pg_container
+    command:
+      - "postgres"
+      - "-c"
+      - "max_connections=100"
+      - "-c"
+      - "shared_buffers=256MB"
+      - "-c"
+      - "effective_cache_size=768MB"
+      - "-c"
+      - "maintenance_work_mem=64MB"
+      - "-c"
+      - "checkpoint_completion_target=0.9"
+      - "-c"
+      - "wal_buffers=7864kB"
+      - "-c"
+      - "default_statistics_target=100"
+      - "-c"
+      - "random_page_cost=1.1"
+      - "-c"
+      - "effective_io_concurrency=200"
+      - "-c"
+      - "work_mem=1310kB"
+      - "-c"
+      - "min_wal_size=1GB"
+      - "-c"
+      - "max_wal_size=4GB"
+    environment:
+      - POSTGRES_DB=ecolab_db
+      - POSTGRES_USER=ecouser
+      - POSTGRES_PASSWORD=eC0uS3r
+      - PGDATA=/var/lib/postgresql/data/pgdata
+    ports:
+      - "5432:5432"  
+    image: postgres:14
+    restart: unless-stopped
+    volumes:
+      - postgres-data:/var/lib/postgresql/data/pgdata
+      - ./sql/create_tables.sql:/docker-entrypoint-initdb.d/create_tables.sql
+
+  master:
+    container_name: ecolab_master
+    restart: unless-stopped
+    image: ghcr.io/smrtsstms/ecolab_master
+    depends_on:
+      - database
+
+  device_connector:
+    container_name: ecolab_connector
+    restart: unless-stopped
+    image: ghcr.io/smrtsstms/ecolab_device_connector
+    depends_on:
+      - master
+    volumes: 
+      - /dev:/dev 
+    privileged: true
+    
+  db_connector:
+    container_name: db_connector
+    restart: unless-stopped
+    image: ghcr.io/smrtsstms/ecolab_db_connector
+    depends_on:
+      - master
+      - database
+
+  grafana:
+    image: ghcr.io/smrtsstms/ecolab_grafana
+    container_name: grafana
+    ports:
+      - 9000:3000
+    volumes:
+      - grafana-data:/var/lib/grafana
+# Explicitly define the persistent volume for your data storage
+
+volumes:
+  postgres-data:
+  grafana-data:
+    external: true
+#networks:
+#  private-network:
