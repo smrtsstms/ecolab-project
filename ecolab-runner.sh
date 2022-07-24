@@ -13,8 +13,8 @@
 sudo adduser $USER sudo
 sudo adduser $USER dialout
 
-sudo cp 99-usb.rules /etc/udev/rules.d/
-sudo udevadm trigger
+cp 99-usb.rules /etc/udev/rules.d/
+udevadm trigger
 
 export CR_PAT=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
 echo $CR_PAT | docker login ghcr.io -u $USER --password-stdin
