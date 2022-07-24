@@ -15,7 +15,7 @@ sudo adduser $USER dialout
 sudo cp 99-usb.rules /etc/udev/rules.d/
 sudo udevadm trigger
 
-export CR_PAT=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
+export CR_PAT=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
 echo $CR_PAT | docker login ghcr.io -u $USER --password-stdin
 
 docker volume create --name=ecolab_postgres-data
