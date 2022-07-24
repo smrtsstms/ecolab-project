@@ -10,7 +10,6 @@
 # Short-Description: Start or stop.
 ### END INIT INFO
 
-sudo adduser $USER sudo
 sudo adduser $USER dialout
 
 sudo cp 99-usb.rules /etc/udev/rules.d/
