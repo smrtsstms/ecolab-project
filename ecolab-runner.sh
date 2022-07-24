@@ -16,7 +16,7 @@ sudo adduser $USER dialout
 sudo cp 99-usb.rules /etc/udev/rules.d/
 sudo udevadm trigger
 
-export CR_PAT=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
+export CR_PAT=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
 echo $CR_PAT | docker login ghcr.io -u $USER --password-stdin
 
 docker volume create --name=ecolab_postgres-data
@@ -27,6 +27,6 @@ docker pull ghcr.io/smrtsstms/ecolab_device_connector:latest
 docker pull ghcr.io/smrtsstms/ecolab_db_connector:latest
 docker pull ghcr.io/smrtsstms/ecolab_grafana:latest
 
-docker-compose up
+docker-compose up -d
 
 xdg-open http://192.168.1.130:9000/d/dLmLK0gVk/panel-pokazanii-s-pribora-ekolab?orgId=1
