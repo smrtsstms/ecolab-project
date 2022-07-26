@@ -73,6 +73,16 @@ services:
       - 9000:3000
     volumes:
       - grafana-data:/var/lib/grafana
+
+  network_connector:
+    container_name: network_connector
+    restart: unless-stopped
+    build:
+      context: ./network_connector
+      dockerfile: Dockerfile
+    depends_on:
+      - master
+      
 # Explicitly define the persistent volume for your data storage
 
 volumes:
