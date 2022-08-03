@@ -25,6 +25,7 @@ docker pull ghcr.io/smrtsstms/ecolab_master:latest
 docker pull ghcr.io/smrtsstms/ecolab_device_connector:latest
 docker pull ghcr.io/smrtsstms/ecolab_db_connector:latest
 docker pull ghcr.io/smrtsstms/ecolab_grafana:latest
+docker pull ghcr.io/smrtsstms/network_connector:latest
 
 docker-compose up -d
 
