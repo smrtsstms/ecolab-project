@@ -69,17 +69,16 @@ services:
   grafana:
     image: ghcr.io/smrtsstms/ecolab_grafana
     container_name: grafana
+    restart: unless-stopped
     ports:
       - 9000:3000
     volumes:
       - grafana-data:/var/lib/grafana
 
   network_connector:
+    image: ghcr.io/smrtsstms/ecolab_network_connector
     container_name: network_connector
     restart: unless-stopped
-    build:
-      context: ./network_connector
-      dockerfile: Dockerfile
     depends_on:
       - master
       
