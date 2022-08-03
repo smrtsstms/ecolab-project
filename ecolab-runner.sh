@@ -28,4 +28,4 @@ docker pull ghcr.io/smrtsstms/ecolab_grafana:latest
 
 docker-compose up -d
 
-xdg-open http://192.168.1.130:9000/d/dLmLK0gVk/panel-pokazanii-s-pribora-ekolab?orgId=1
+xdg-open http://127.0.0.1:9000/d/dLmLK0gVk/panel-pokazanii-s-pribora-ekolab?orgId=1
